@@ -7,7 +7,9 @@
 exports.isStar = true;
 
 exports.query = function (collection) {
-    var newCollection = collection.slice();
+    var newCollection = collection.map(function (item) {
+        return Object.assign({}, item);
+    });
     var query = [].slice.call(arguments, 1);
     query.sort(compareFunctions);
 
@@ -19,7 +21,7 @@ exports.query = function (collection) {
 };
 
 function compareFunctions(first, second) {
-    var priority = ['format', 'limit', 'select', 'sortBy', 'filterIn', 'or', 'and'];
+    var priority = ['format', 'limit', 'select', 'sortBy', 'or', 'and', 'filterIn'];
 
     return priority.indexOf(first.name) < priority.indexOf(second.name);
 }
