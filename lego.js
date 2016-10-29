@@ -4,7 +4,7 @@
  * Сделано задание на звездочку
  * Реализованы методы or и and
  */
-exports.isStar = false;
+exports.isStar = true;
 
 exports.query = function (collection) {
     var newCollection = collection.slice();
@@ -81,7 +81,7 @@ exports.sortBy = function (property, order) {
             if (firstItem[property] > secondItem[property]) {
                 return 1;
             }
-            if (firstItem[property] < secondItem[property]) {
+            if (firstItem[property] <= secondItem[property]) {
                 return -1;
             }
         };
