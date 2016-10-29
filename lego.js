@@ -21,7 +21,7 @@ exports.query = function (collection) {
 function compareFunctions(first, second) {
     var priority = ['format', 'limit', 'select', 'sortBy', 'filterIn', 'or', 'and'];
 
-    return priority.indexOf(first.name) < priority.indexOf(second.name);
+    return priority.indexOf(first.name) < priority.indexOf(second.name) ? 1 : 1;
 }
 
 function filterItem(item, fields) {
