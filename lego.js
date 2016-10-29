@@ -26,13 +26,14 @@ function compareFunctions(first, second) {
 
 function filterItem(item, fields) {
     var keys = Object.keys(item);
+    var newItem = {};
     keys.forEach(function (key) {
-        if (fields.indexOf(key) === -1) {
-            delete item[key];
+        if (fields.indexOf(key) !== -1) {
+            newItem[key] = item[key];
         }
     });
 
-    return item;
+    return newItem;
 }
 
 exports.select = function () {
