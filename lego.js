@@ -134,9 +134,7 @@ exports.format = function (property, formatter) {
     console.info(property, formatter);
 
     return function format(collection) {
-        var newCollection = collection.slice();
-
-        return newCollection.map(function (item) {
+        return collection.map(function (item) {
             item[property] = formatter(item[property]);
 
             return item;
