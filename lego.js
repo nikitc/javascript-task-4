@@ -116,7 +116,7 @@ exports.sortBy = function (property, order) {
                 return 0;
             }
 
-            return sortSign * firstItem[property] < secondItem[property] ? -1 : 1;
+            return sortSign * (firstItem[property] < secondItem[property] ? -1 : 1);
         };
         newCollection.sort(compareElements);
 
@@ -134,8 +134,9 @@ exports.format = function (property, formatter) {
     console.info(property, formatter);
 
     return function format(collection) {
+        var newCollection = collection.slice();
 
-        return collection.map(function (item) {
+        return newCollection.map(function (item) {
             item[property] = formatter(item[property]);
 
             return item;
