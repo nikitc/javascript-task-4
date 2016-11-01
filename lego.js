@@ -27,9 +27,7 @@ exports.query = function (collection) {
     var query = [].slice.call(arguments, 1);
     query.sort(compareFunctions);
 
-
     return query.reduce(function (changeCollection, func) {
-
         return func(changeCollection);
     }, newCollection);
 };
@@ -65,10 +63,7 @@ exports.select = function () {
     var fields = [].slice.call(arguments);
 
     return function select(collection) {
-        var newCollection = collection.slice();
-
-        return newCollection.map(function (item) {
-
+        return collection.map(function (item) {
             return filterItem(item, fields);
         });
     };
@@ -90,9 +85,7 @@ exports.filterIn = function (property, values) {
     console.info(property, values);
 
     return function filterIn(collection) {
-        var newCollection = collection.slice();
-
-        return newCollection.filter(function (item) {
+        return collection.filter(function (item) {
             return isHasValue(item, property, values);
         });
     };
@@ -108,7 +101,6 @@ exports.sortBy = function (property, order) {
     console.info(property, order);
 
     return function sortBy(collection) {
-        var newCollection = collection.slice();
         var compareElements = function (firstItem, secondItem) {
             var sortSign = order === 'desc' ? -1 : 1;
 
@@ -118,9 +110,9 @@ exports.sortBy = function (property, order) {
 
             return sortSign * (firstItem[property] < secondItem[property] ? -1 : 1);
         };
-        newCollection.sort(compareElements);
+        collection.sort(compareElements);
 
-        return newCollection;
+        return collection;
     };
 };
 
