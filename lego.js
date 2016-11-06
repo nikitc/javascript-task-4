@@ -7,8 +7,8 @@
 exports.isStar = true;
 
 var priority = {
-    'format': 0,
-    'limit': 1,
+    'format': -1,
+    'limit': 0,
     'select': 1,
     'sortBy': 2,
     'or': 3,
