@@ -8,7 +8,7 @@ exports.isStar = true;
 
 var priority = {
     'format': 0,
-    'limit': 0,
+    'limit': 1,
     'select': 1,
     'sortBy': 2,
     'or': 3,
@@ -42,16 +42,18 @@ function compareFunctions(first, second) {
     return priority[first.name] < priority[second.name] ? 1 : -1;
 }
 
-function filterItem(item, fields) {
-    var keys = Object.keys(item);
-    var newItem = {};
-    keys.forEach(function (key) {
-        if (fields.indexOf(key) !== -1) {
-            newItem[key] = item[key];
-        }
-    });
+/**
+ * Возвращаем объект только с теми полями, какие указали
+ * @param {Object} item – объект с полями (friend)
+ * @param {Array} fields – Поля, с которыми нужно вернуть объект
+ * @returns {Object}
+ */
+function selectFields(item, fields) {
+    return fields.reduce(function (newItem, currentField) {
+        newItem[currentField] = item[currentField];
 
-    return newItem;
+        return newItem;
+    }, {});
 }
 
 /**
@@ -64,7 +66,7 @@ exports.select = function () {
 
     return function select(collection) {
         return collection.map(function (item) {
-            return filterItem(item, fields);
+            return selectFields(item, fields);
         });
     };
 };
@@ -76,7 +78,7 @@ function isHasValue(item, property, values) {
 }
 
 /**
- * * Фильтрация поля по массиву значений
+ * Фильтрация поля по массиву значений
  * @param {String} property – Свойство для фильтрации
  * @param {Array} values – Доступные значения
  * @returns {Function}
