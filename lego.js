@@ -7,8 +7,8 @@
 exports.isStar = true;
 
 var priority = {
-    'format': -1,
-    'limit': 0,
+    'format': 0,
+    'limit': 1,
     'select': 1,
     'sortBy': 2,
     'or': 3,
@@ -49,11 +49,15 @@ function compareFunctions(first, second) {
  * @returns {Object}
  */
 function selectFields(item, fields) {
-    return fields.reduce(function (newItem, currentField) {
-        newItem[currentField] = item[currentField];
+    var keys = Object.keys(item);
+    var newItem = {};
+    keys.forEach(function (key) {
+        if (fields.indexOf(key) !== -1) {
+            newItem[key] = item[key];
+        }
+    });
 
-        return newItem;
-    }, {});
+    return newItem;
 }
 
 /**
