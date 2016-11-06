@@ -50,14 +50,14 @@ function compareFunctions(first, second) {
  */
 function selectFields(item, fields) {
     var keys = Object.keys(item);
-    var newItem = {};
-    keys.forEach(function (key) {
-        if (fields.indexOf(key) !== -1) {
-            newItem[key] = item[key];
-        }
-    });
 
-    return newItem;
+    return fields.reduce(function (newItem, currentField) {
+        if (keys.indexOf(currentField) !== -1) {
+            newItem[currentField] = item[currentField];
+        }
+
+        return newItem;
+    }, {});
 }
 
 /**
